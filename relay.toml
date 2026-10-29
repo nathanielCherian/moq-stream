@@ -1,0 +1,14 @@
+# Local relay for development: self-signed cert, anonymous access.
+[log]
+level = "info"
+
+[listen]
+bind = "[::]:4443"
+tls.generate = ["localhost"]
+
+# Serves /certificate.sha256 so the browser can trust the self-signed cert.
+[web.http]
+listen = "[::]:4443"
+
+[auth]
+public = "**"
