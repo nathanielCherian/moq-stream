@@ -10,6 +10,7 @@ const name = params.get("name") ?? "sfu.hang";
 const watch = document.getElementById("watch");
 const form = document.getElementById("source");
 const status = document.getElementById("status");
+const transport = document.getElementById("transport");
 const stats = document.getElementById("stats");
 
 watch.setAttribute("url", url);
@@ -37,4 +38,12 @@ watch.broadcast.out.catalog.subscribe((catalog) => {
 	]
 		.filter(Boolean)
 		.join(" · ");
+});
+
+// Which wire transport the relay session is on. WebTransport (QUIC) is preferred; the library
+// races it against a WebSocket fallback and disables WebTransport outright on WebKit (Safari).
+watch.connection.transport.subscribe((t) => {
+	const label = { webtransport: "QUIC · WebTransport", websocket: "TCP · WebSocket" }[t] ?? "no connection";
+	transport.textContent = label;
+	transport.className = `badge ${{ webtransport: "quic", websocket: "ws" }[t] ?? ""}`;
 });

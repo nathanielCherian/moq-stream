@@ -11,7 +11,9 @@ A live MoQ broadcast of the `../sfu` mock feed, plus a browser page to watch it.
 
 - `ffmpeg`, Node.js
 - `moq` and `moq-relay`: `brew install moq-dev/tap/moq-relay moq-dev/tap/moq`
-- A browser with WebTransport and WebCodecs (Chrome, Edge, or recent Firefox/Safari)
+- A browser with WebCodecs. Chrome, Edge and Firefox connect over WebTransport (QUIC); Safari connects over
+  a WebSocket fallback, because `@moq/net` disables WebTransport on WebKit (flow-control bugs). The page shows
+  which one it got next to the LIVE badge, and Safari also shows a yellow "Partial Browser Support" banner.
 
 ## Run
 
