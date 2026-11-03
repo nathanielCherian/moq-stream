@@ -22,6 +22,14 @@
 		input { font: 13px ui-monospace, monospace; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; }
 		button { align-self: flex-end; font: inherit; padding: 6px 16px; border: 0; border-radius: 4px; background: #3b82f6; color: #fff; cursor: pointer; }
 		#stats { margin-top: 12px; font: 12px ui-monospace, monospace; color: var(--muted); }
+		#qoe { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin-top: 12px; }
+		#qoe section { padding: 10px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+		#qoe h2 { margin: 0 0 6px; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+		#qoe dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font: 12px/1.6 ui-monospace, monospace; }
+		#qoe dt { color: var(--muted); }
+		#qoe dd { margin: 0; text-align: right; }
+		#qoe dd.bad { color: var(--live); }
+		#qoe dd.na { color: var(--line); }
 	</style>
 </head>
 <body>
@@ -44,6 +52,46 @@
 		</div>
 
 		<div id="stats"></div>
+
+		<!-- QoE panel, sampled once a second from the element's signals (see main.js). -->
+		<div id="qoe">
+			<section>
+				<h2>Playback</h2>
+				<dl>
+					<dt>fps</dt><dd data-stat="fps"></dd>
+					<dt>frames</dt><dd data-stat="frames"></dd>
+					<dt>display</dt><dd data-stat="display"></dd>
+					<dt>frozen</dt><dd data-stat="frozen"></dd>
+				</dl>
+			</section>
+			<section>
+				<h2>Stalls</h2>
+				<dl>
+					<dt>video</dt><dd data-stat="videoStalls"></dd>
+					<dt>audio</dt><dd data-stat="audioStalls"></dd>
+					<dt>skipped groups</dt><dd data-stat="skipped"></dd>
+					<dt>last skip</dt><dd data-stat="lastSkip"></dd>
+				</dl>
+			</section>
+			<section>
+				<h2>Latency</h2>
+				<dl>
+					<dt>delay</dt><dd data-stat="delay"></dd>
+					<dt>jitter</dt><dd data-stat="jitter"></dd>
+					<dt>rtt</dt><dd data-stat="rtt"></dd>
+					<dt>buffered</dt><dd data-stat="buffered"></dd>
+				</dl>
+			</section>
+			<section>
+				<h2>Network</h2>
+				<dl>
+					<dt>video</dt><dd data-stat="videoRate"></dd>
+					<dt>audio</dt><dd data-stat="audioRate"></dd>
+					<dt>loss</dt><dd data-stat="loss"></dd>
+					<dt>total</dt><dd data-stat="total"></dd>
+				</dl>
+			</section>
+		</div>
 
 		<form id="source">
 			<label>Relay URL <input name="url" required></label>
