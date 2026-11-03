@@ -1,12 +1,15 @@
-# Local relay for development: self-signed cert, anonymous access.
+# Relay for moq.nathanielc.com: browsers connect over WebTransport (QUIC, UDP 4443) with the
+# Let's Encrypt certificate, copied from /etc/letsencrypt so the relay can read it without root.
 [log]
 level = "info"
 
 [listen]
 bind = "[::]:4443"
-tls.generate = ["localhost"]
+tls.cert = ["/home/paws/certs/moq.nathanielc.com/fullchain.pem"]
+tls.key = ["/home/paws/certs/moq.nathanielc.com/privkey.pem"]
 
-# Serves /certificate.sha256 so the browser can trust the self-signed cert.
+# Plain-HTTP listener on TCP 4443: /certificate.sha256 for local publishers that connect with
+# http://localhost:4443, and WebSocket for an nginx https://moq.nathanielc.com/anon fallback.
 [web.http]
 listen = "[::]:4443"
 

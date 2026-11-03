@@ -2,9 +2,10 @@ import "@moq/watch/element";
 import "@moq/watch/ui";
 import "@moq/watch/support/element";
 
-// Defaults match ../relay.toml and ../publish.sh; override with ?url=...&name=...
+// Default relay: moq.nathanielc.com, which nginx proxies to the relay on :4443 (WebSocket over
+// TLS). Override with ?url=...&name=...
 const params = new URLSearchParams(location.search);
-const url = params.get("url") ?? import.meta.env.VITE_RELAY_URL ?? "http://localhost:4443/anon";
+const url = params.get("url") ?? import.meta.env.VITE_RELAY_URL ?? "https://moq.nathanielc.com/anon";
 const name = params.get("name") ?? "sfu.hang";
 
 const watch = document.getElementById("watch");
